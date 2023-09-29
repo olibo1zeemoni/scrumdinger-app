@@ -10,7 +10,8 @@ import SwiftUI
 struct MeetingView: View {
     var body: some View {
         VStack {
-            ProgressView(value: 5, total: 15)
+           
+            ProgressView(value:10, total: 30)
             HStack{
                 VStack(alignment: .leading) {
                     Text(/*@START_MENU_TOKEN@*/"Seconds Elapsed"/*@END_MENU_TOKEN@*/)
@@ -28,6 +29,7 @@ struct MeetingView: View {
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(Text("Time Remaining"))
             .accessibilityValue(Text("10 minutes"))
+            //.accessibleFontColor(foregroundColor(.black)
             
             Circle()
                 .strokeBorder(lineWidth: 24, antialiased: true)
