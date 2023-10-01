@@ -23,13 +23,16 @@ struct EditView: View {
                     Spacer()
                     Text("\(Int(scrumData.lengthInMinutes)) minutes")
                         .accessibilityHidden(true)
+                        
                 }
-                ColorPicker("Color", selection: $scrumData.color)
-                    .accessibilityLabel(Text("color Picker"))
+                
+//                ColorPicker("Color", selection: $scrumData.theme.mainColor)
+//                    .accessibilityLabel(Text("color Picker"))
             }
+            
             Section(header: Text("attendees")){
-                ForEach(scrumData.attendees, id: \.self) {attendee in
-                    Text(attendee)
+                ForEach(scrumData.attendees) {attendee in
+                    Text(attendee.name)
                                       
                 }
                 .onDelete{ Indices in
@@ -39,7 +42,7 @@ struct EditView: View {
                     TextField("New Attendee", text: $newAttendee)
                     Button(action: {
                         withAnimation {
-                            scrumData.attendees.append(newAttendee)
+                            scrumData.attendees.append(DailyScrum.Attendee(name: newAttendee))
                             newAttendee = ""
                         }
                     }) {
@@ -60,7 +63,7 @@ struct EditView: View {
 
 struct EditView_Previews: PreviewProvider {
     static var previews: some View {
-        EditView(scrumData: .constant(DailyScrum.data[0].data))
+        EditView(scrumData: .constant(DailyScrum.sampleData[0].data))
             .preferredColorScheme(.dark)
     }
 }

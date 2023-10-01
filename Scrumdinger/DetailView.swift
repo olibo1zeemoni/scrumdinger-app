@@ -17,34 +17,42 @@ struct DetailView: View {
                         .font(.headline)
                         .foregroundColor(.accentColor)
                         .accessibilityLabel(Text("Start Meeting"))
-                    }                                
+                    }    
+                
                 HStack{
                     Label("Length", systemImage: "clock")
-                        .accessibilityLabel(Text("Meeting Length"))
                     Spacer()
-                    Text("\(scrum.lengthInMinutes)")
+                    Text("\(scrum.lengthInMinutes) minutes")
                 }
+                .accessibilityElement(children: .combine)
+                
                 HStack{
-                    Label("Color", systemImage: "paintpalette")
+                    Label("Theme", systemImage: "paintpalette")
                     Spacer()
-                    Image(systemName: "checkmark.circle.fill")
-                    .foregroundColor(scrum.color)
+                    Text(scrum.theme.name)
+                        .padding(4)
+                        .foregroundColor(scrum.theme.accentColor)
+                        .background(scrum.theme.mainColor)
+                        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 10)), style: FillStyle())
                 }
-                .accessibilityElement(children: .ignore)
+                .accessibilityElement(children: .combine)
             }
+            
+            
             Section(header: Text("Attendees")){
-                ForEach(scrum.attendees, id: \.self) {attendee in
-                    Label(attendee, systemImage: "person")
-                        .accessibilityLabel(Text ("Person"))
-                        .accessibilityValue(Text(attendee))
+                ForEach(scrum.attendees) {attendee in
+                    Label(attendee.name, systemImage: "person")
+                        .accessibilityLabel(attendee.name + "Person")
                 }
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationBarItems(trailing: Button("Edit"){
-            isPresented = true
-            data = scrum.data
-        })
+        .toolbar {
+            Button("Edit"){
+                isPresented = true
+                data = scrum.data
+            }
+        }
         .navigationTitle(scrum.title)
         .fullScreenCover(isPresented: $isPresented) {
             NavigationView {
@@ -64,8 +72,7 @@ struct DetailView: View {
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            DetailView(scrum: .constant(DailyScrum.data[0]))
+            DetailView(scrum: .constant(DailyScrum.sampleData[0]))
         }
-        .preferredColorScheme(.dark)
     }
 }

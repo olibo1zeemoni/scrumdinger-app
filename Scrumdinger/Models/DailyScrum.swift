@@ -3,47 +3,60 @@ import SwiftUI
 struct DailyScrum: Identifiable{
     let id: UUID
     var title : String
-    var attendees : [String]
+    var attendees : [Attendee]
     var lengthInMinutes : Int
-    var color : Color
+    var theme : Theme
     
     
-    init(id: UUID = UUID(), title: String, attendees: [String], lengthInMinutes: Int, color: Color){
+    init(id: UUID = UUID(), title: String, attendees: [String], lengthInMinutes: Int, theme: Theme){
         self.id = id
         self.title = title
-        self.attendees = attendees
+        self.attendees = attendees.map { Attendee(name: $0)}
         self.lengthInMinutes = lengthInMinutes
-        self.color = color
+        self.theme = theme
         
     }
 }
 
 extension DailyScrum {
-    static var data: [DailyScrum] {
+    static let sampleData: [DailyScrum] =
         [
-            DailyScrum(title: "Design", attendees: ["Cathy", "Daisy", "Simon", "Jonathan"], lengthInMinutes: 10, color: Color("Design")),
-            DailyScrum(title: "App Dev", attendees: ["Katie", "Gray", "Euna", "Luis", "Darla"], lengthInMinutes: 5, color: Color("App Dev")),
-            DailyScrum(title: "Web Dev", attendees: ["Chella", "Chris", "Christina", "Eden", "Karla", "Lindsey", "Aga", "Chad", "Jenn", "Sarah"], lengthInMinutes: 1, color: Color("Web Dev"))
+            DailyScrum(title: "Design", attendees: ["Cathy", "Daisy", "Simon", "Jonathan"], lengthInMinutes: 10, theme: .periwinkle),
+            DailyScrum(title: "App Dev", attendees: ["Katie", "Gray", "Euna", "Luis", "Darla"], lengthInMinutes: 5, theme: .buttercup),
+            DailyScrum(title: "Web Dev", attendees: ["Chella", "Chris", "Christina", "Eden", "Karla", "Lindsey", "Aga", "Chad", "Jenn", "Sarah"], lengthInMinutes: 1, theme: .seafoam)
         ]
-    }
+    
 }
 
 extension DailyScrum {
     struct Data {
         var title: String = ""
-        var attendees: [String] = []
+        var attendees: [Attendee] = []
         var lengthInMinutes: Double = 5.0
-        var color: Color = .red
+        var theme: Theme = .bubblegum
     }
     
     var data: Data {
-        return Data(title: title, attendees: attendees, lengthInMinutes: Double(lengthInMinutes), color: color)
+        return Data(title: title, attendees: attendees, lengthInMinutes: Double(lengthInMinutes), theme: theme)
     }
     
     mutating func update(from data: Data) {
         title = data.title
         attendees = data.attendees
         lengthInMinutes = Int(data.lengthInMinutes)
-        color = data.color
+        theme = data.theme
+    }
+}
+
+
+extension DailyScrum {
+    struct Attendee: Identifiable {
+        let id: UUID
+        var name: String
+        
+        init(id: UUID = UUID(), name: String) {
+            self.id = id
+            self.name = name
+        }
     }
 }

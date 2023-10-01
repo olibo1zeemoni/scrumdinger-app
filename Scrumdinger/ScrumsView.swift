@@ -3,27 +3,31 @@ import SwiftUI
 struct ScrumsView: View{
     @Binding var scrums: [DailyScrum]
     var body: some View{
-        List{
-            
-            //CardView(scrum: DailyScrum.data[0])
-            //CardView(scrum: DailyScrum.data[1])
-            //CardView(scrum: DailyScrum.data[2])
-            
-            ForEach(scrums) {scrum in
-                NavigationLink(destination: DetailView(scrum: binding(for: scrum)))
-                {
-                    CardView(scrum: scrum)
+        
+        NavigationStack {
+            List{
+                
+                //CardView(scrum: DailyScrum.data[0])
+                //CardView(scrum: DailyScrum.data[1])
+                //CardView(scrum: DailyScrum.data[2])
+                
+                ForEach(scrums) {scrum in
+                    NavigationLink(destination: DetailView(scrum: binding(for: scrum)))
+                    {
+                        CardView(scrum: scrum)
+                        
+                    }
+                    .listRowBackground(scrum.theme.mainColor)
                     
                 }
-                .listRowBackground(scrum.color)
-                
             }
+            .navigationTitle("Daily Scrums")
         }
-        .navigationTitle("Daily Scrums")
-        .navigationBarItems(trailing: Button(action: {}){
+        .toolbar { Button(action: {}) {
             Image(systemName: "plus")
         }
-        )
+        .accessibilityLabel("New Scrum")
+        }
     }
     
     private func binding(for scrum: DailyScrum)-> Binding<DailyScrum>{
@@ -36,8 +40,8 @@ struct ScrumsView: View{
 
 struct ScrumsView_Preview: PreviewProvider{
     static var previews: some View{
-        NavigationView {
-            ScrumsView(scrums: .constant(DailyScrum.data))
+        NavigationStack {
+            ScrumsView(scrums: .constant(DailyScrum.sampleData))
         }
         .preferredColorScheme(.dark)
     }

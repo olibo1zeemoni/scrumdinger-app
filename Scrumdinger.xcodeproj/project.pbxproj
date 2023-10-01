@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,8 @@
 		F58EA4CA2733FA0900B2B400 /* ScrumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58EA4C92733FA0900B2B400 /* ScrumsView.swift */; };
 		F58EA4CC2734170D00B2B400 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58EA4CB2734170D00B2B400 /* DetailView.swift */; };
 		F5E50F682735B46C00017A1B /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E50F672735B46C00017A1B /* EditView.swift */; };
+		F5FFB3592AC84F3B00D64D04 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FFB3582AC84F3B00D64D04 /* Theme.swift */; };
+		F5FFB35B2AC85F1300D64D04 /* TrailingIconLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FFB35A2AC85F1300D64D04 /* TrailingIconLabelStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		F58EA4C92733FA0900B2B400 /* ScrumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrumsView.swift; sourceTree = "<group>"; };
 		F58EA4CB2734170D00B2B400 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		F5E50F672735B46C00017A1B /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		F5FFB3582AC84F3B00D64D04 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		F5FFB35A2AC85F1300D64D04 /* TrailingIconLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingIconLabelStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,7 @@
 				F58EA4CB2734170D00B2B400 /* DetailView.swift */,
 				F5E50F672735B46C00017A1B /* EditView.swift */,
 				F58EA4C72733C3BE00B2B400 /* CardView.swift */,
+				F5FFB35A2AC85F1300D64D04 /* TrailingIconLabelStyle.swift */,
 				F58EA4C92733FA0900B2B400 /* ScrumsView.swift */,
 				F58EA4B62732B95D00B2B400 /* MeetingView.swift */,
 				F58EA4B82732B95F00B2B400 /* Assets.xcassets */,
@@ -86,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				F58EA4C42733C18100B2B400 /* DailyScrum.swift */,
+				F5FFB3582AC84F3B00D64D04 /* Theme.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -126,7 +132,7 @@
 				};
 			};
 			buildConfigurationList = F58EA4AC2732B95D00B2B400 /* Build configuration list for PBXProject "Scrumdinger" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -161,8 +167,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F58EA4B72732B95D00B2B400 /* MeetingView.swift in Sources */,
+				F5FFB3592AC84F3B00D64D04 /* Theme.swift in Sources */,
 				F58EA4CC2734170D00B2B400 /* DetailView.swift in Sources */,
 				F58EA4C52733C18100B2B400 /* DailyScrum.swift in Sources */,
+				F5FFB35B2AC85F1300D64D04 /* TrailingIconLabelStyle.swift in Sources */,
 				F58EA4C82733C3BE00B2B400 /* CardView.swift in Sources */,
 				F5E50F682735B46C00017A1B /* EditView.swift in Sources */,
 				F58EA4CA2733FA0900B2B400 /* ScrumsView.swift in Sources */,
@@ -304,12 +312,13 @@
 				DEVELOPMENT_TEAM = 9B8CU8XHSY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,12 +343,13 @@
 				DEVELOPMENT_TEAM = 9B8CU8XHSY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
