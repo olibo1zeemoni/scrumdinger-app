@@ -6,6 +6,14 @@ struct DailyScrum: Identifiable{
     var attendees : [Attendee]
     var lengthInMinutes : Int
     var theme : Theme
+    var lengthInMinutesAsDouble: Double {
+        get {
+            Double(lengthInMinutes)
+        }
+        set {
+            lengthInMinutes = Int(newValue)
+        }
+    }
     
     
     init(id: UUID = UUID(), title: String, attendees: [String], lengthInMinutes: Int, theme: Theme){
@@ -16,6 +24,10 @@ struct DailyScrum: Identifiable{
         self.theme = theme
         
     }
+    
+    static var emptyScrum: DailyScrum {
+        return DailyScrum(title: "", attendees: [], lengthInMinutes: 5, theme: .sky)
+      }
 }
 
 extension DailyScrum {
@@ -28,25 +40,23 @@ extension DailyScrum {
     
 }
 
-extension DailyScrum {
-    struct Data {
-        var title: String = ""
-        var attendees: [Attendee] = []
-        var lengthInMinutes: Double = 5.0
-        var theme: Theme = .bubblegum
-    }
-    
-    var data: Data {
-        return Data(title: title, attendees: attendees, lengthInMinutes: Double(lengthInMinutes), theme: theme)
-    }
-    
-    mutating func update(from data: Data) {
-        title = data.title
-        attendees = data.attendees
-        lengthInMinutes = Int(data.lengthInMinutes)
-        theme = data.theme
-    }
-}
+//extension DailyScrum {
+//    struct Data {
+//        var title: String = ""
+//        var attendees: [Attendee] = []
+//        var lengthInMinutes: Double = 5.0
+//        var theme: Theme = .bubblegum
+//    }
+//    
+//  
+//    
+//    mutating func update(from data: Data) {
+//        title = data.title
+//        attendees = data.attendees
+//        lengthInMinutes = Int(data.lengthInMinutes)
+//        theme = data.theme
+//    }
+//}
 
 
 extension DailyScrum {
