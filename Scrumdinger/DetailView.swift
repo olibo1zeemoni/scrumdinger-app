@@ -6,8 +6,7 @@ import SwiftUI
 
 struct DetailView: View {
     @Binding var scrum: DailyScrum
-    @State private var data: DailyScrum.Data = DailyScrum.Data()
-    @State private var isPresented = false
+    @State private var isPresentingEditView = false
     var body: some View {
         List {
             Section(header: Text("Meeting Info")) {
@@ -33,7 +32,7 @@ struct DetailView: View {
                         .padding(4)
                         .foregroundColor(scrum.theme.accentColor)
                         .background(scrum.theme.mainColor)
-                        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 10)), style: FillStyle())
+                        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                 }
                 .accessibilityElement(children: .combine)
             }
@@ -42,28 +41,36 @@ struct DetailView: View {
             Section(header: Text("Attendees")){
                 ForEach(scrum.attendees) {attendee in
                     Label(attendee.name, systemImage: "person")
-                        .accessibilityLabel(attendee.name + "Person")
+                        .accessibilityLabel("Attendee" + attendee.name)
                 }
             }
         }
         .listStyle(InsetGroupedListStyle())
         .toolbar {
             Button("Edit"){
-                isPresented = true
-                data = scrum.data
+                isPresentingEditView = true
+                //data = scrum.emptyScrum
             }
         }
         .navigationTitle(scrum.title)
-        .fullScreenCover(isPresented: $isPresented) {
-            NavigationView {
-                EditView(scrumData: $data)
+        .sheet(isPresented: $isPresentingEditView) {
+            NavigationStack {
+                DetailEditView(scrum: $scrum)
                     .navigationTitle(scrum.title)
-                    .navigationBarItems(leading: Button("Cancel") {
-                        isPresented = false
-                    }, trailing: Button("Done") {
-                        isPresented = false
-                        scrum.update(from: data)
-                    })
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Cancel") {
+                                isPresentingEditView = false
+                            }
+                        }
+                        
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Done") {
+                                
+                                isPresentingEditView = false 
+                            }
+                        }
+                    }
             }
         }
     }
