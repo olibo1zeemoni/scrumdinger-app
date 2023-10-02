@@ -7,11 +7,8 @@ import SwiftUI
 struct DetailView: View {
     @Binding var scrum: DailyScrum
     @State private var isPresentingEditView = false
-<<<<<<< HEAD
     @State private var editingScrum = DailyScrum.emptyScrum
     
-=======
->>>>>>> refs/remotes/origin/master
     var body: some View {
         List {
             Section(header: Text("Meeting Info")) {
@@ -54,21 +51,14 @@ struct DetailView: View {
         .toolbar {
             Button("Edit"){
                 isPresentingEditView = true
-<<<<<<< HEAD
                 editingScrum = scrum
-=======
-                //data = scrum.emptyScrum
->>>>>>> refs/remotes/origin/master
             }
         }
         .navigationTitle(scrum.title)
         .sheet(isPresented: $isPresentingEditView) {
             NavigationStack {
-<<<<<<< HEAD
                 DetailEditView(scrum: $editingScrum)
-=======
                 DetailEditView(scrum: $scrum)
->>>>>>> refs/remotes/origin/master
                     .navigationTitle(scrum.title)
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
@@ -79,13 +69,10 @@ struct DetailView: View {
                         
                         ToolbarItem(placement: .confirmationAction) {
                             Button("Done") {
-<<<<<<< HEAD
                                 isPresentingEditView = false
                                 scrum = editingScrum
-=======
                                 
                                 isPresentingEditView = false 
->>>>>>> refs/remotes/origin/master
                             }
                         }
                     }
