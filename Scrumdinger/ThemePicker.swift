@@ -22,5 +22,5 @@ struct ThemePicker: View {
 }
 
 #Preview {
-    ThemePicker(selection: .constant(.buttercup))
+    ThemePicker(selection: .constant(.navy))
 }
