@@ -1,15 +1,18 @@
 //
-//  EditView.swift
+//  AddView.swift
 //  Scrumdinger
 //
-//  Created by Olibo moni on 05/11/2021.
+//  Created by Olibo moni on 03/10/2023.
 //
 
 import SwiftUI
 import SwiftData
 
-struct DetailEditView: View {
-    @Binding var scrum: DailyScrum
+struct AddView: View {
+    @Bindable var scrum: DailyScrum
+    @Environment(\.modelContext) var modelContext
+    @Environment(\.dismiss) var dismiss
+    
     @State private var newAttendee = ""
 
     
@@ -36,9 +39,7 @@ struct DetailEditView: View {
                     Text(attendee.name)
                     
                 }
-                .onDelete{ Indices in
-                    scrum.attendees.remove(atOffsets: Indices)
-                }
+            
                 HStack {
                     TextField("New Attendee", text: $newAttendee)
                     Button(action: {
@@ -55,15 +56,33 @@ struct DetailEditView: View {
                 
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("save") {
+                    
+                    modelContext.insert(scrum)
+                    dismiss()
+                }
+                .disabled(disable)
+            }
+            ToolbarItem(placement: .cancellationAction) {
+                Button("cancel") {
+                    dismiss()
+                }
+            }
+        }
         .listStyle(InsetGroupedListStyle())
         
     }
+    
+    var disable: Bool {
+        guard !scrum.title.isEmpty else { return true }
+        guard !scrum.attendees.isEmpty else { return true }
+        return false
+    }
 }
 
-
-struct EditView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailEditView(scrum: .constant(DailyScrum.sampleData[0]))
-            .preferredColorScheme(.dark)
-    }
+#Preview {
+    AddView(scrum: DailyScrum.sampleData[0])
+        .modelContainer(previewContainer)
 }

@@ -3,9 +3,10 @@
 
 
 import SwiftUI
+import SwiftData
 
 struct DetailView: View {
-    @Binding var scrum: DailyScrum
+     var scrum: DailyScrum
     @State private var isPresentingEditView = false
     @State private var editingScrum = DailyScrum.emptyScrum
     
@@ -58,21 +59,20 @@ struct DetailView: View {
         .sheet(isPresented: $isPresentingEditView) {
             NavigationStack {
                 DetailEditView(scrum: $editingScrum)
-                DetailEditView(scrum: $scrum)
                     .navigationTitle(scrum.title)
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
                             Button("Cancel") {
                                 isPresentingEditView = false
+                                
                             }
                         }
                         
                         ToolbarItem(placement: .confirmationAction) {
                             Button("Done") {
-                                isPresentingEditView = false
-                                scrum = editingScrum
+                                //scrum = editingScrum
                                 
-                                isPresentingEditView = false 
+                                isPresentingEditView = false
                             }
                         }
                     }
@@ -84,7 +84,7 @@ struct DetailView: View {
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            DetailView(scrum: .constant(DailyScrum.sampleData[0]))
+            DetailView(scrum: DailyScrum.sampleData[0])
         }
     }
 }
