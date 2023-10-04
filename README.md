@@ -1,2 +1,2 @@
 # scrumdinger-app
-# SwiftUI tutotial from Apple. 
+# SwiftUI tutorial from Apple. 
