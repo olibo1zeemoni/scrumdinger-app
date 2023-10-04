@@ -13,7 +13,7 @@ struct DetailView: View {
         List {
             Section(header: Text("Meeting Info")) {
                 NavigationLink(
-                    destination: MeetingView()) {
+                    destination: MeetingView(scrum: $scrum)) {
                     Label("Start meeting", systemImage: "timer")
                         .font(.headline)
                         .foregroundColor(.accentColor)
@@ -58,7 +58,6 @@ struct DetailView: View {
         .sheet(isPresented: $isPresentingEditView) {
             NavigationStack {
                 DetailEditView(scrum: $editingScrum)
-                DetailEditView(scrum: $scrum)
                     .navigationTitle(scrum.title)
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
@@ -71,8 +70,7 @@ struct DetailView: View {
                             Button("Done") {
                                 isPresentingEditView = false
                                 scrum = editingScrum
-                                
-                                isPresentingEditView = false 
+
                             }
                         }
                     }
@@ -84,7 +82,7 @@ struct DetailView: View {
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            DetailView(scrum: .constant(DailyScrum.sampleData[0]))
+            DetailView(scrum: .constant(DailyScrum.sampleData[2]))
         }
     }
 }

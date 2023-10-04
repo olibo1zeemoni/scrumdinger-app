@@ -2,11 +2,11 @@ import SwiftUI
 
 struct ScrumsView: View{
     @Binding var scrums: [DailyScrum]
+    @State private var isPresentingNewScrumView = false
+    
     var body: some View{
-        
         NavigationStack {
             List{
-                
                 ForEach($scrums) {$scrum in
                     NavigationLink(destination: DetailView(scrum: $scrum))
                     {
@@ -18,15 +18,20 @@ struct ScrumsView: View{
                 }
             }
             .navigationTitle("Daily Scrums")
+            .toolbar {
+                Button(action: {
+                    isPresentingNewScrumView = true
+                }) {
+                Image(systemName: "plus")
+            }
+            .accessibilityLabel("New Scrum")
+            }
         }
-        .toolbar { Button(action: {}) {
-            Image(systemName: "plus")
+        .sheet(isPresented: $isPresentingNewScrumView) {
+            NewScrumSheet(scrums: $scrums, isPresentingNewScrumView: $isPresentingNewScrumView)
         }
-        .accessibilityLabel("New Scrum")
-        }
+        
     }
-    
-
 }
 
 struct ScrumsView_Preview: PreviewProvider{
