@@ -31,6 +31,7 @@ struct ScrumsView: View{
             NewScrumSheet(scrums: $scrums, isPresentingNewScrumView: $isPresentingNewScrumView)
         }
         
+        
     }
 }
 

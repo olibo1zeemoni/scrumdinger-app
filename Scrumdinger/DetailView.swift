@@ -11,7 +11,7 @@ struct DetailView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Meeting Info")) {
+            Section("Meeting Info") {
                 NavigationLink(
                     destination: MeetingView(scrum: $scrum)) {
                     Label("Start meeting", systemImage: "timer")
@@ -39,11 +39,22 @@ struct DetailView: View {
                 .accessibilityElement(children: .combine)
             }
             
-            
-            Section(header: Text("Attendees")){
+            Section("Attendees"){
                 ForEach(scrum.attendees) {attendee in
                     Label(attendee.name, systemImage: "person")
                         .accessibilityLabel("Attendee" + attendee.name)
+                }
+            }
+            
+            Section("History") {
+                if scrum.history.isEmpty {
+                    Label("No meetings yet", systemImage: "calendar.badge.exclamationmark")
+                }
+                ForEach(scrum.history) { history in
+                    HStack {
+                        Image(systemName: "calendar")
+                        Text(history.date, style: .date)
+                    }
                 }
             }
         }
