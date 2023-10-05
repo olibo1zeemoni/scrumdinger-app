@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct DailyScrum: Identifiable{
+struct DailyScrum: Identifiable, Codable {
     let id: UUID
     var title : String
     var attendees : [Attendee]
@@ -30,6 +30,16 @@ struct DailyScrum: Identifiable{
     static var emptyScrum: DailyScrum {
         return DailyScrum(title: "", attendees: [], lengthInMinutes: 5, theme: .sky)
       }
+    
+//    enum CodingKeys : String, CodingKey {
+//        case id = "id"
+//        case title = "title"
+//        case attendees = "attendees"
+//        case lengthInMinutes = "lenghtInMinutes"
+//        case theme = "theme"
+//        
+//        
+//    }
 }
 
 extension DailyScrum {
@@ -42,27 +52,10 @@ extension DailyScrum {
     
 }
 
-//extension DailyScrum {
-//    struct Data {
-//        var title: String = ""
-//        var attendees: [Attendee] = []
-//        var lengthInMinutes: Double = 5.0
-//        var theme: Theme = .bubblegum
-//    }
-//    
-//  
-//    
-//    mutating func update(from data: Data) {
-//        title = data.title
-//        attendees = data.attendees
-//        lengthInMinutes = Int(data.lengthInMinutes)
-//        theme = data.theme
-//    }
-//}
 
 
 extension DailyScrum {
-    struct Attendee: Identifiable {
+    struct Attendee: Identifiable, Codable {
         let id: UUID
         var name: String
         
