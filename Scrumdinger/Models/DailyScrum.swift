@@ -1,4 +1,51 @@
 import SwiftUI
+import SwiftData
+
+
+@available(iOS 17, *)
+@Model
+class DailyScrumSwiftData: Identifiable {
+    let id: UUID
+    var title : String
+    var attendees : [Attendee]
+    var lengthInMinutes : Int
+    var theme : Theme
+    var history = [History]()
+    
+    var lengthInMinutesAsDouble: Double {
+        get {
+            Double(lengthInMinutes)
+        }
+        set {
+            lengthInMinutes = Int(newValue)
+        }
+    }
+    
+    
+    init(id: UUID = UUID(), title: String, attendees: [String], lengthInMinutes: Int, theme: Theme){
+        self.id = id
+        self.title = title
+        self.attendees = attendees.map { Attendee(name: $0)}
+        self.lengthInMinutes = lengthInMinutes
+        self.theme = theme
+        
+    }
+    
+    static var emptyScrum: DailyScrum {
+        return DailyScrum(title: "", attendees: [], lengthInMinutes: 5, theme: .sky)
+    }
+    
+    struct Attendee: Identifiable, Codable {
+        let id: UUID
+        var name: String
+        
+        init(id: UUID = UUID(), name: String) {
+            self.id = id
+            self.name = name
+        }
+    }
+}
+    
 
 struct DailyScrum: Identifiable, Codable {
     let id: UUID
@@ -31,15 +78,6 @@ struct DailyScrum: Identifiable, Codable {
         return DailyScrum(title: "", attendees: [], lengthInMinutes: 5, theme: .sky)
       }
     
-//    enum CodingKeys : String, CodingKey {
-//        case id = "id"
-//        case title = "title"
-//        case attendees = "attendees"
-//        case lengthInMinutes = "lenghtInMinutes"
-//        case theme = "theme"
-//        
-//        
-//    }
 }
 
 extension DailyScrum {

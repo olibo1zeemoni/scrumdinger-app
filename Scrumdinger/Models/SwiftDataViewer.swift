@@ -9,30 +9,31 @@ import SwiftUI
 import SwiftData
 
 
-
+@available(iOS 17.0, *)
 struct SwiftDataViewer<Content: View>: View {
-    
-    private let content: Content
-    private let preview: PreviewContainer
-    private let items: [any PersistentModel]?
-    
-    init(preview: PreviewContainer,items: [ any PersistentModel]? = nil, @ViewBuilder _ content: () -> Content) {
-        self.preview = preview
-        self.items = items
-        self.content = content()
-    }
-    
-    var  body: some View {
-        content
-            .modelContainer (preview.container!)
-            .onAppear (perform: {
-                if let items {
-                    preview.add(items: items)
-                }
-            })
+        
+        private let content: Content
+        private let preview: PreviewContainer
+        private let items: [any PersistentModel]?
+        
+        init(preview: PreviewContainer,items: [ any PersistentModel]? = nil, @ViewBuilder _ content: () -> Content) {
+            self.preview = preview
+            self.items = items
+            self.content = content()
+        }
+        
+        var  body: some View {
+            content
+                .modelContainer (preview.container!)
+                .onAppear (perform: {
+                    if let items {
+                        preview.add(items: items)
+                    }
+                })
     }
 }
 
+@available(iOS 17.0, *)
 struct PreviewContainer {
     let container: ModelContainer?
     
@@ -42,11 +43,8 @@ struct PreviewContainer {
         self.container = try? ModelContainer(for: schema, configurations: config)
         
     }
-    
-    
-    
-    
-     func add (items: [any PersistentModel]) {
+
+    func add (items: [any PersistentModel]) {
         Task { @MainActor in
             items.forEach { container?.mainContext.insert($0)
                 
