@@ -33,7 +33,7 @@ struct ScrumsView: View{
             NewScrumSheet(scrums: $scrums, isPresentingNewScrumView: $isPresentingNewScrumView)
         }
         .onChange(of: scenePhase) { phase in
-            if phase == .inactive || phase == .background {
+            if phase == .inactive  {
                 saveAction()
             }
         }
