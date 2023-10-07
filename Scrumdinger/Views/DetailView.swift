@@ -9,6 +9,11 @@ struct DetailView: View {
     @State private var isPresentingEditView = false
     @State private var editingScrum = DailyScrum.emptyScrum
     
+    var disabled: Bool {
+        guard scrum.attendees.isEmpty else { return true }
+        return false
+    }
+    
     var body: some View {
         List {
             Section("Meeting Info") {
@@ -19,7 +24,7 @@ struct DetailView: View {
                         .foregroundColor(.accentColor)
                         .accessibilityLabel(Text("Start Meeting"))
                     }    
-                
+                    .disabled(!disabled)
                 HStack{
                     Label("Length", systemImage: "clock")
                     Spacer()
