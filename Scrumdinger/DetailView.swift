@@ -6,7 +6,7 @@ import SwiftUI
 import SwiftData
 
 struct DetailView: View {
-     var scrum: DailyScrum
+    var scrum: DailyScrum
     @State private var isPresentingEditView = false
     @State private var editingScrum = DailyScrum.emptyScrum
     
@@ -15,11 +15,11 @@ struct DetailView: View {
             Section(header: Text("Meeting Info")) {
                 NavigationLink(
                     destination: MeetingView()) {
-                    Label("Start meeting", systemImage: "timer")
-                        .font(.headline)
-                        .foregroundColor(.accentColor)
-                        .accessibilityLabel(Text("Start Meeting"))
-                    }    
+                        Label("Start meeting", systemImage: "timer")
+                            .font(.headline)
+                            .foregroundColor(.accentColor)
+                            .accessibilityLabel(Text("Start Meeting"))
+                    }
                 
                 HStack{
                     Label("Length", systemImage: "clock")
@@ -81,10 +81,7 @@ struct DetailView: View {
     }
 }
 
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            DetailView(scrum: DailyScrum.sampleData[0])
-        }
-    }
+#Preview {
+    DetailView(scrum: DailyScrum.sampleData[0])
+        .modelContainer(previewContainer)
 }

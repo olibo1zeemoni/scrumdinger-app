@@ -44,12 +44,10 @@ struct ScrumsView: View{
 
 }
 
-struct ScrumsView_Preview: PreviewProvider{
-    static var previews: some View{
-        NavigationStack {
-            ScrumsView()
-                .modelContainer(previewContainer)
-        }
+#Preview{
+    NavigationStack{
+        ScrumsView()
+            .modelContainer(previewContainer)
     }
 }
 
