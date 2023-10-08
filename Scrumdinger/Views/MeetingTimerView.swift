@@ -10,7 +10,7 @@ import SwiftUI
 struct MeetingTimerView: View {
     let theme: Theme
     let speakers: [ScrumTimer.Speaker]
-    let secondsElapsed: Int
+    let secondsElapsedForSpeaker: Int
     
     var currentSpeakerName: String {
         speakers.first(where: {!$0.isCompleted})?.name ?? "No One"
@@ -21,8 +21,8 @@ struct MeetingTimerView: View {
     }
     
     var body: some View {
-        TimelineView(.animation) { context in
-            let value = secondsValue(for: context.date)
+       // TimelineView(.animation) { context in
+            //let value = secondsValue(for: context.date)
             
             Circle()
                 .strokeBorder(lineWidth: 24, antialiased: true)
@@ -51,13 +51,22 @@ struct MeetingTimerView: View {
             .overlay {
                 SpeakerArc(speakerIndex: speakers.firstIndex(where: { $0.id == currentSpeaker.id })!, totalSpeakers: speakers.count)
                     .rotation(Angle(degrees: -90))
-                    .trim(from: 0, to: CGFloat(secondsElapsed / 60))
+                    .trim(from: 0, to: CGFloat(secondsElapsedForSpeaker / 60))
                     .stroke(theme.mainColor, lineWidth: 12)
                     
             }
             .padding(.horizontal)
-            
-        }
+            .onChange(of: secondsElapsedForSpeaker) { seconds in
+                //print(seconds)
+               // returnFraction()
+            }
+        
+    }
+    
+    func returnFraction()  {
+       //CGFloat(secondsElapsedForSpeaker)
+        print("\(secondsElapsedForSpeaker) seconds")
+        //return CGFloat(secondsElapsedForSpeaker)
     }
     
     private func secondsValue(for date: Date) -> Double {
@@ -70,5 +79,5 @@ struct MeetingTimerView: View {
     var speakers: [ScrumTimer.Speaker] {
         [ScrumTimer.Speaker(name: "Bill", isCompleted: true), ScrumTimer.Speaker(name: "Cathy", isCompleted: false), ScrumTimer.Speaker(name: "Mike", isCompleted: false)]
     }
-    return MeetingTimerView(theme: .bubblegum, speakers: speakers, secondsElapsed: 30)
+    return MeetingTimerView(theme: .bubblegum, speakers: speakers, secondsElapsedForSpeaker: 30)
 }
