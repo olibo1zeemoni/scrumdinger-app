@@ -11,6 +11,8 @@ struct MeetingTimerView: View {
     let theme: Theme
     let speakers: [ScrumTimer.Speaker]
     let secondsElapsedForSpeaker: Int
+    let isRecording: Bool
+    
     
     var currentSpeakerName: String {
         speakers.first(where: {!$0.isCompleted})?.name ?? "No One"
@@ -21,45 +23,46 @@ struct MeetingTimerView: View {
     }
     
     var body: some View {
-       // TimelineView(.animation) { context in
-            //let value = secondsValue(for: context.date)
-            
-            Circle()
-                .strokeBorder(lineWidth: 24, antialiased: true)
-                .overlay(alignment: .center) {
+        // TimelineView(.animation) { context in
+        //let value = secondsValue(for: context.date)
+        
+        Circle()
+            .strokeBorder(lineWidth: 24, antialiased: true)
+            .overlay(alignment: .center) {
+                
+                VStack {
+                    Text(currentSpeakerName)
+                        .font(.title)
+                    Text("is speaking")
+                    Image(systemName: isRecording ? "mic" : "mic.slash")
+                        .font(.title)
+                        .padding(.top)
+                        .accessibilityLabel(isRecording ? "with transcription" : "without transcription")
                     
-                    VStack {
-                        Text(currentSpeakerName)
-                            .font(.title)
-                        Text("is speaking")
-                    }
-                    .accessibilityElement(children: .combine)
-                    .foregroundStyle(theme.accentColor)
                 }
-                .overlay
-            {
-                ForEach(speakers) { speaker in
-                    if speaker.isCompleted {
-                        let index = speakers.firstIndex(where: { $0.id == speaker.id })
-                        SpeakerArc(speakerIndex: index!, totalSpeakers: speakers.count)
-                            .rotation(Angle(degrees: -90))
-                        
-                            .stroke(theme.mainColor, lineWidth: 12)
-                    }
-                }
+                .accessibilityElement(children: .combine)
+                .foregroundStyle(theme.accentColor)
             }
-            .overlay {
-                SpeakerArc(speakerIndex: speakers.firstIndex(where: { $0.id == currentSpeaker.id })!, totalSpeakers: speakers.count)
-                    .rotation(Angle(degrees: -90))
-                    .trim(from: 0, to: CGFloat(secondsElapsedForSpeaker / 60))
-                    .stroke(theme.mainColor, lineWidth: 12)
+            .overlay
+        {
+            ForEach(speakers) { speaker in
+                if speaker.isCompleted {
+                    let index = speakers.firstIndex(where: { $0.id == speaker.id })
+                    SpeakerArc(speakerIndex: index!, totalSpeakers: speakers.count)
+                        .rotation(Angle(degrees: -90))
                     
+                        .stroke(theme.mainColor, lineWidth: 12)
+                }
             }
-            .padding(.horizontal)
-            .onChange(of: secondsElapsedForSpeaker) { seconds in
-                //print(seconds)
-               // returnFraction()
-            }
+        }
+//        .overlay {
+//            SpeakerArc(speakerIndex: speakers.firstIndex(where: { $0.id == currentSpeaker.id })!, totalSpeakers: speakers.count)
+//                .rotation(Angle(degrees: -90))
+//                .trim(from: 0, to: CGFloat(secondsElapsedForSpeaker / 60))
+//                .stroke(theme.mainColor, lineWidth: 12)
+//            
+//        }
+        .padding(.horizontal)
         
     }
     
@@ -79,5 +82,5 @@ struct MeetingTimerView: View {
     var speakers: [ScrumTimer.Speaker] {
         [ScrumTimer.Speaker(name: "Bill", isCompleted: true), ScrumTimer.Speaker(name: "Cathy", isCompleted: false), ScrumTimer.Speaker(name: "Mike", isCompleted: false)]
     }
-    return MeetingTimerView(theme: .bubblegum, speakers: speakers, secondsElapsedForSpeaker: 30)
+    return MeetingTimerView(theme: .bubblegum, speakers: speakers, secondsElapsedForSpeaker: 30, isRecording: true)
 }
