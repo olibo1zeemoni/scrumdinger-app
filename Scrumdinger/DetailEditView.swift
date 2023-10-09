@@ -61,9 +61,22 @@ struct DetailEditView: View {
 }
 
 
-struct EditView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailEditView(scrum: .constant(DailyScrum.sampleData[0]))
+#Preview{
+    let previewContainer: ModelContainer = {
+        do {
+            let container = try ModelContainer(for: DailyScrum.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+            
+            let modelContext = container.mainContext
+                for scrum in DailyScrum.sampleData {
+                    modelContext.insert(scrum)
+                }
+            return container
+        } catch {
+            fatalError("Failed to create container")
+        }
+    }()
+    
+      return  DetailEditView(scrum: .constant(DailyScrum.sampleData[0]))
+            .modelContainer(previewContainer)
             .preferredColorScheme(.dark)
-    }
 }

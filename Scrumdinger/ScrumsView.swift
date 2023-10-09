@@ -44,10 +44,10 @@ struct ScrumsView: View{
 
 }
 
-#Preview{
+#Preview("ScrumView"){
     NavigationStack{
         ScrumsView()
-            .modelContainer(previewContainer)
+            .modelContainer(DataController.previewContainer)
     }
 }
 

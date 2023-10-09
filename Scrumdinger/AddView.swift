@@ -83,6 +83,19 @@ struct AddView: View {
 }
 
 #Preview {
-    AddView(scrum: DailyScrum.sampleData[0])
+    let previewContainer: ModelContainer = {
+        do {
+            let container = try ModelContainer(for: DailyScrum.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+            
+            let modelContext = container.mainContext
+                for scrum in DailyScrum.sampleData {
+                    modelContext.insert(scrum)
+                }
+            return container
+        } catch {
+            fatalError("Failed to create container")
+        }
+    }()
+   return AddView(scrum: DailyScrum.sampleData[0])
         .modelContainer(previewContainer)
 }

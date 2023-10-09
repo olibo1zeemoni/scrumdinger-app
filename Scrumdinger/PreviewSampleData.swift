@@ -1,4 +1,4 @@
-//
+///  if try modelContext.fetch(FetchDescriptor<DailyScrum>()).isEmpty {
 //  PreviewSampleData.swift
 //  Scrumdinger
 //
@@ -8,20 +8,19 @@
 import SwiftData
 
 @MainActor
-let previewContainer: ModelContainer = {
-    do {
-        let container = try ModelContainer(for: DailyScrum.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-        
-        let modelContext = container.mainContext
-        if try modelContext.fetch(FetchDescriptor<DailyScrum>()).isEmpty {
+class DataController {
+    
+   static let previewContainer: ModelContainer = {
+        do {
+            let container = try ModelContainer(for: DailyScrum.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
             
+            let modelContext = container.mainContext
             for scrum in DailyScrum.sampleData {
-                container.mainContext.insert(scrum)
+                modelContext.insert(scrum)
             }
+            return container
+        } catch {
+            fatalError("Failed to create container")
         }
-        
-        return container
-    } catch {
-        fatalError("Failed to create container")
-    }
-}()
+    }()
+}

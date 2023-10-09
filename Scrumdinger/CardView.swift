@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 struct CardView: View{
     let scrum: DailyScrum
@@ -26,11 +27,25 @@ struct CardView: View{
 }
 
 
-struct CardView_Previews: PreviewProvider{
-    static var scrum = DailyScrum.sampleData[0]
-    static var previews: some View{
-        CardView(scrum: scrum)
-            .background(scrum.theme.mainColor)
-            .previewLayout(.fixed(width: 400, height: 60))
-    }
+#Preview {
+    let previewContainer: ModelContainer = {
+        do {
+            let container = try ModelContainer(for: DailyScrum.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+            
+            let modelContext = container.mainContext
+            for scrum in DailyScrum.sampleData {
+                modelContext.insert(scrum)
+            }
+            return container
+        } catch {
+            fatalError("Failed to create container")
+        }
+    }()
+    var scrum = DailyScrum.sampleData[0]
+    
+    return CardView(scrum: scrum)
+        .background(scrum.theme.mainColor)
+        .previewLayout(.fixed(width: 400, height: 60))
+        .modelContainer(previewContainer)
+    
 }
